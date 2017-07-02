@@ -1,6 +1,6 @@
 from __future__ import absolute_import
-from itertools import izip_longest
-import Queue
+from itertools import zip_longest
+import queue as Queue
 
 import MySQLdb as mysql
 from MySQLdb.cursors import DictCursor
@@ -293,6 +293,7 @@ class SQLDatabase(Database):
             for split_values in grouper(values, 1000):
                 # Create our IN part of the query
                 query = self.SELECT_MULTIPLE
+                split_values = list([x for x in split_values])
                 query = query % ', '.join(['UNHEX(%s)'] * len(split_values))
 
                 cur.execute(query, split_values)
@@ -312,7 +313,7 @@ class SQLDatabase(Database):
 def grouper(iterable, n, fillvalue=None):
     args = [iter(iterable)] * n
     return (filter(None, values) for values
-            in izip_longest(fillvalue=fillvalue, *args))
+            in zip_longest(fillvalue=fillvalue, *args))
 
 
 def cursor_factory(**factory_options):

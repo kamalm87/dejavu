@@ -11,7 +11,7 @@ def unique_hash(filepath, blocksize=2**20):
     a file. Inspired by MD5 version here:
     http://stackoverflow.com/a/1131255/712997
 
-    Works with large files. 
+    Works with large files.
     """
     s = sha1()
     with open(filepath , "rb") as f:
@@ -56,7 +56,7 @@ def read(filename, limit=None):
         data = np.fromstring(audiofile._data, np.int16)
 
         channels = []
-        for chn in xrange(audiofile.channels):
+        for chn in range(audiofile.channels):
             channels.append(data[chn::audiofile.channels])
 
         fs = audiofile.frame_rate
